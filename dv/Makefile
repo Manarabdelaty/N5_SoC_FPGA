@@ -7,7 +7,7 @@ all: sim
 .PHONY: all
 
 test.hex: $(SW_PATH)/test.c $(SW_PATH)/crt0.S $(SW_PATH)/link.ld 
-	$(MAKE) -C $(SW_PATH) all
+	$(MAKE) -C $(SW_PATH) all ; mv $(SW_PATH)/test.hex ../mem/
 
 test.vvp: N5_FPGA_TB.v test.hex
 	iverilog -o test.vvp -DUSE_IO_BUF_BEH \

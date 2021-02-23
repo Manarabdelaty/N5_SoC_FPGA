@@ -2,7 +2,7 @@
 
 `define   SIM_TIME    6000_000
 `define   SIM_LEVEL   0
-`define   TEST_FILE   "../N5_SoC/sw/test.hex" 
+`define   TEST_FILE   "../mem/test.hex" 
 
 `include "rtl_fpga/n5_netlists.v"
 `include "sst26wf080b.v"
