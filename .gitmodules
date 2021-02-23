@@ -1,0 +1,3 @@
+[submodule "N5_SoC"]
+	path = N5_SoC
+	url = https://github.com/shalan/N5_SoC.git
