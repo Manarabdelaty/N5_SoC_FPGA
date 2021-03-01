@@ -2,11 +2,12 @@
 
 `define   SIM_TIME    6000_000
 `define   SIM_LEVEL   0
-`define   TEST_FILE   "../mem/test.hex" 
+`define   TEST_FILE   "../mem/test.mem" 
 
 `include "rtl_fpga/n5_netlists.v"
 `include "sst26wf080b.v"
 `include "23LC512.v" 
+`include "M24LC16B.v"
 
 module N5_FPGA_TB;
 
@@ -65,7 +66,7 @@ module N5_FPGA_TB;
         .HCLK(HCLK),
         .HRESETn(HRESETn),
 
-        .SYSTICKCLKDIV(8'd100),
+        // .SYSTICKCLKDIV(8'd100),
         .NMI(1'b0),
        
         .fd_Sys0_S0(fdio),
@@ -91,8 +92,8 @@ module N5_FPGA_TB;
         .SSn_Sys0_SS0_S3(SSn_Sys0_SS0_S3),
         .SCLK_Sys0_SS0_S3(SCLK_Sys0_SS0_S3),
 
-        .scl_Sys0_SS0_S4(scl_Sys0_SS0_S4),
-        .sda_Sys0_SS0_S4(sda_Sys0_SS0_S4),
+        .scl_Sys0_SS0_S4(scl),
+        .sda_Sys0_SS0_S4(sda),
     
         .scl_Sys0_SS0_S5(scl_Sys0_SS0_S5),
         .sda_Sys0_SS0_S5(sda_Sys0_SS0_S5),
@@ -121,6 +122,22 @@ module N5_FPGA_TB;
         .SCK(SCLK_Sys0_SS0_S2),
         .HOLD_N_SIO3(SPI_HOLD)
 	);
+
+    // I2C E2PROM connected to I2C0
+    wire    scl, sda;
+    
+	pullup p1(scl); // pullup scl line
+	pullup p2(sda); // pullup sda line
+
+    M24LC16B I2C_E2PROM(
+        .A0(1'b0), 
+        .A1(1'b0), 
+        .A2(1'b0), 
+        .WP(1'b0), 
+        .SDA(sda), 
+        .SCL(scl), 
+        .RESET(~HRESETn)
+    );
 
     // Load the application into the flash memory
     initial begin

@@ -10,7 +10,7 @@ module soc_core (
 	input wire HRESETn,
 	
 	input wire 			NMI,
-	input wire [7:0]	SYSTICKCLKDIV,
+	// input wire [7:0]	SYSTICKCLKDIV,
 
 	inout wire [3: 0] 	fd_Sys0_S0,
 	output wire [0: 0] 	fsclk_Sys0_S0,
@@ -97,7 +97,9 @@ module soc_core (
 	assign HSIZE_Sys0 = M2_HSIZE;
 	assign M2_HGRANT = 1'b1;
 	assign M2_HBUSREQ = 1'b1;
-    
+	
+	wire [7:0] SYSTICKCLKDIV = 8'd100;
+
     gpio_bidir #(
         .WIDTH(16)
     ) gpio_bidir (
@@ -129,7 +131,7 @@ module soc_core (
             .dio_buf(scl_Sys0_SS0_S4),
             .din_i(scl_o_Sys0_SS0_S4),
             .dout_o(scl_i_Sys0_SS0_S4),
-            .in_not_out_i(~scl_oen_o_Sys0_SS0_S4) // invert enable
+            .in_not_out_i(scl_oen_o_Sys0_SS0_S4) // invert enable
     );
      
     wire [0: 0] sda_i_Sys0_SS0_S4;
@@ -142,7 +144,7 @@ module soc_core (
         .dio_buf(sda_Sys0_SS0_S4),
         .din_i(sda_o_Sys0_SS0_S4),
         .dout_o(sda_i_Sys0_SS0_S4),
-        .in_not_out_i(~sda_oen_o_Sys0_SS0_S4)
+        .in_not_out_i(sda_oen_o_Sys0_SS0_S4)
     );
         
     wire [0: 0] scl_i_Sys0_SS0_S5;
@@ -155,7 +157,7 @@ module soc_core (
         .dio_buf(scl_Sys0_SS0_S5),
         .din_i(scl_o_Sys0_SS0_S5),
         .dout_o(scl_i_Sys0_SS0_S5),
-        .in_not_out_i(~scl_oen_o_Sys0_SS0_S5)
+        .in_not_out_i(scl_oen_o_Sys0_SS0_S5)
     );
      
      
@@ -169,7 +171,7 @@ module soc_core (
         .dio_buf(sda_Sys0_SS0_S5),
         .din_i(sda_o_Sys0_SS0_S5),
         .dout_o(sda_i_Sys0_SS0_S5),
-        .in_not_out_i(~sda_oen_o_Sys0_SS0_S5)
+        .in_not_out_i(sda_oen_o_Sys0_SS0_S5)
     );
 	//AHBlite_SYS0 instantiation
 	AHBlite_sys_0 ahb_sys_0_uut(
