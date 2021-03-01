@@ -163,14 +163,15 @@ module N5_FPGA_TB;
 
     always #5 HCLK = ~ HCLK;
 
-    // Dump file
-    initial begin
-        $dumpfile("N5_FPGA_TB.vcd");
-        $dumpvars(`SIM_LEVEL, N5_FPGA_TB);
-        #`SIM_TIME;
-        $finish;
-    end
-
+    `ifdef ICARUS_VERILOG
+        // Dump file
+        initial begin
+            $dumpfile("N5_FPGA_TB.vcd");
+            $dumpvars(`SIM_LEVEL, N5_FPGA_TB);
+            #`SIM_TIME;
+            $finish;
+        end
+    `endif
     // Terminate the smulation with ebreak instruction.
     // Calculate the CPI using the CSRs
     `ifndef GL

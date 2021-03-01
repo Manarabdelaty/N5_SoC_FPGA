@@ -10,7 +10,7 @@ test.hex: $(SW_PATH)/test.c $(SW_PATH)/crt0.S $(SW_PATH)/link.ld
 	$(MAKE) -C $(SW_PATH) all ; mv $(SW_PATH)/test.hex ../mem/
 
 test.vvp: N5_FPGA_TB.v test.hex
-	iverilog -o test.vvp -DUSE_IO_BUF_BEH \
+	iverilog -o test.vvp -DICARUS_VERILOG -DUSE_IO_BUF_BEH \
 	-I $(N5_FPGA_RTL_PATH) -I $(N5_RTL_PATH) -I $(N5_SIM_PATH) N5_FPGA_TB.v
 
 sim: test.vvp 
