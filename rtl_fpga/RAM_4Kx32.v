@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
+// `define INIT_MEMORY
+
 module RAM_4Kx32 (
 `ifdef USE_POWER_PINS
     VPWR,
@@ -40,5 +42,9 @@ module RAM_4Kx32 (
        end 
        else
            Do <= 32'b0;
+
+    `ifdef INII_MEMORY
+        $readmemh("test.mem", RAM);
+    `endif
     
 endmodule
