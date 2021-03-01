@@ -1,13 +1,15 @@
 `timescale 1ns/1ns
 
-`define   SIM_TIME    6000_000
-`define   SIM_LEVEL   0
-`define   TEST_FILE   "../mem/test.mem" 
+`ifdef ICARUS_VERILOG
+    `define   SIM_TIME    6000_000
+    `define   SIM_LEVEL   0
+    `define   TEST_FILE   "../mem/test.mem" 
 
-`include "rtl_fpga/n5_netlists.v"
-`include "sst26wf080b.v"
-`include "23LC512.v" 
-`include "M24LC16B.v"
+    `include "rtl_fpga/n5_netlists.v"
+    `include "sst26wf080b.v"
+    `include "23LC512.v" 
+    `include "M24LC16B.v"
+`endif
 
 module N5_FPGA_TB;
 
