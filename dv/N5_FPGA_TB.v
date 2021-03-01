@@ -51,6 +51,9 @@ module N5_FPGA_TB;
     wire [0: 0] pwm_Sys0_SS0_S6;
 	wire [0: 0] pwm_Sys0_SS0_S7;
 
+    // I2C E2PROM connected to I2C0
+    wire    scl, sda;
+    
     /* Program Flash */
     // assign fdio = fdoe ? fdo : 4'bzzzz;
     // assign fdi = fdio;
@@ -127,9 +130,6 @@ module N5_FPGA_TB;
         .HOLD_N_SIO3(SPI_HOLD)
 	);
 
-    // I2C E2PROM connected to I2C0
-    wire    scl, sda;
-    
 	pullup p1(scl); // pullup scl line
 	pullup p2(sda); // pullup sda line
 
