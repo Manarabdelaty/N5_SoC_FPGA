@@ -9,6 +9,8 @@
     `include "sst26wf080b.v"
     `include "23LC512.v" 
     `include "M24LC16B.v"
+`else
+    `define   TEST_FILE   "test.mem" 
 `endif
 
 module N5_FPGA_TB;
