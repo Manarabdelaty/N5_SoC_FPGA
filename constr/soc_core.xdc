@@ -19,7 +19,9 @@ create_clock -add -name sys_clk_pin -period 83.33 -waveform {0 41.66} [get_ports
 #set_property -dict { PACKAGE_PIN C17   IOSTANDARD LVCMOS33 } [get_ports { led0_r }]; #IO_L14P_T2_SRCC_16 Sch=led0_r
 
 ## Buttons
-#set_property -dict { PACKAGE_PIN A18   IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L19N_T3_VREF_16 Sch=btn[0]
+set_property PACKAGE_PIN A18     [get_ports { HRESETn }]; #IO_L19N_T3_VREF_16 Sch=btn[0]
+set_property IOSTANDARD LVCMOS33 [get_ports { HRESETn }]; #IO_L19N_T3_VREF_16 Sch=btn[0]
+
 #set_property -dict { PACKAGE_PIN B18   IOSTANDARD LVCMOS33 } [get_ports { btn[1] }]; #IO_L19P_T3_16 Sch=btn[1]
 
 ## Pmod Header JA
@@ -67,7 +69,7 @@ set_property PACKAGE_PIN T3 [get_ports { GPIO_Sys0_S2[3] }]; #IO_L2N_T0_34 Sch=p
 set_property PACKAGE_PIN R2 [get_ports { GPIO_Sys0_S2[2] }]; #IO_L1P_T0_34 Sch=pio[28]
 set_property PACKAGE_PIN T1 [get_ports { GPIO_Sys0_S2[1] }]; #IO_L3P_T0_DQS_34 Sch=pio[29]
 set_property PACKAGE_PIN T2 [get_ports { GPIO_Sys0_S2[0] }]; #IO_L1N_T0_34 Sch=pio[30]
-set_property PACKAGE_PIN U1 [get_ports { HRESETn }]; #IO_L3N_T0_DQS_34 Sch=pio[31]
+# set_property PACKAGE_PIN U1 [get_ports { HRESETn }]; #IO_L3N_T0_DQS_34 Sch=pio[31]
 set_property PACKAGE_PIN W2 [get_ports { NMI }]; #IO_L5N_T0_34 Sch=pio[32]
 set_property PACKAGE_PIN V2 [get_ports { RsRx_Sys0_SS0_S1[0] }]; #IO_L5P_T0_34 Sch=pio[33]
 set_property PACKAGE_PIN W3 [get_ports { RsTx_Sys0_SS0_S1[0] }]; #IO_L6N_T0_VREF_34 Sch=pio[34]
@@ -113,7 +115,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports { GPIO_Sys0_S2[3] }]; #IO_L2N_T0_34 
 set_property IOSTANDARD LVCMOS33 [get_ports { GPIO_Sys0_S2[2] }]; #IO_L1P_T0_34 Sch=pio[28]
 set_property IOSTANDARD LVCMOS33 [get_ports { GPIO_Sys0_S2[1] }]; #IO_L3P_T0_DQS_34 Sch=pio[29]
 set_property IOSTANDARD LVCMOS33 [get_ports { GPIO_Sys0_S2[0] }]; #IO_L1N_T0_34 Sch=pio[30]
-set_property IOSTANDARD LVCMOS33 [get_ports { HRESETn }]; #IO_L3N_T0_DQS_34 Sch=pio[31]
+# set_property IOSTANDARD LVCMOS33 [get_ports { HRESETn }]; #IO_L3N_T0_DQS_34 Sch=pio[31]
 set_property IOSTANDARD LVCMOS33 [get_ports { NMI }]; #IO_L5N_T0_34 Sch=pio[32]
 set_property IOSTANDARD LVCMOS33 [get_ports { RsRx_Sys0_SS0_S1[0] }]; #IO_L5P_T0_34 Sch=pio[33]
 set_property IOSTANDARD LVCMOS33 [get_ports { RsTx_Sys0_SS0_S1[0] }]; #IO_L6N_T0_VREF_34 Sch=pio[34]

@@ -29,6 +29,7 @@
 
 `include "NfiVe32.v" 
 
+`include "rtl_fpga/btn_sync.v"
 `include "rtl_fpga/gpio_bidir.v"
 `include "rtl_fpga/RAM_4Kx32.v"
 `include "rtl_fpga/soc_core.v"

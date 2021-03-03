@@ -1,6 +1,12 @@
 `default_nettype none
 `timescale 1ns/1ns
 
+`ifdef USE_RESET_BTN
+	`define HRESETn_PORT .HRESETn(HRESETn_Sync)
+`else
+	`define HRESETn_PORT .HRESETn(HRESETn)
+`endif
+
 module soc_core (
 `ifdef USE_POWER_PINS
 	input VPWR,
@@ -173,15 +179,25 @@ module soc_core (
         .dout_o(sda_i_Sys0_SS0_S5),
         .in_not_out_i(sda_oen_o_Sys0_SS0_S5)
     );
+
+	// Add synchronizer for the reset pin if it is mapped to one of the FPGA buttons 
+	`ifdef USE_RESET_BTN
+		wire HRESETn_Sync;
+		btn_sync btn_sync (
+			.in(HRESETn),
+			.clk(HCLK),
+			.out(HRESETn_Sync)	
+		);
+	`endif
+
 	//AHBlite_SYS0 instantiation
 	AHBlite_sys_0 ahb_sys_0_uut(
 	`ifdef USE_POWER_PINS
 		.VPWR(VPWR),
 		.VGND(VGND),
 	`endif
+		`HRESETn_PORT,
 		.HCLK(HCLK),
-		.HRESETn(HRESETn),
-         
 		.HADDR(HADDR_Sys0),
 		.HWDATA(HWDATA_Sys0),
 		.HWRITE(HWRITE_Sys0),
@@ -280,8 +296,7 @@ module soc_core (
 	.VGND(VGND),
 `endif
 		.HCLK(HCLK),
-		.HRESETn(HRESETn),
-
+		`HRESETn_PORT,
 		.HADDR(M2_HADDR),
 		.HREADY(M2_HREADY),
 		.HWRITE(M2_HWRITE),

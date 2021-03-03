@@ -1,7 +1,7 @@
 `timescale 1ns/1ns
 
 `ifdef ICARUS_VERILOG
-    `define   SIM_TIME    15_000_000
+    `define   SIM_TIME    50_000_000
     `define   SIM_LEVEL   0
     `define   TEST_FILE   "../mem/test_i.mem" 
 
@@ -158,7 +158,7 @@ module N5_FPGA_TB;
         HRESETn = 1'bx;        
         #50;
         HRESETn = 0;
-        #100;
+        #8000000;
         @(posedge HCLK);
         HRESETn <= 1;
     end
