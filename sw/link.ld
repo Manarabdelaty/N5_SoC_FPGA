@@ -3,13 +3,13 @@ ENTRY(_start)
 MEMORY
 {
     FLASH (x) :
-        ORIGIN = 0x20002000
+        ORIGIN = 0x20000000 
         LENGTH = 8K
     SRAM (rwx) :
-        ORIGIN = 0x20000000,
+        ORIGIN = 0x20000000 + 8K,
         LENGTH = 8K
     stack (rw):
-        ORIGIN = 0x20000000 + 16K
+        ORIGIN = 0x20000000 + 12K
         LENGTH = 4K
 }
 
