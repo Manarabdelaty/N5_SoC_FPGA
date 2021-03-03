@@ -1,16 +1,16 @@
 `timescale 1ns/1ns
 
 `ifdef ICARUS_VERILOG
-    `define   SIM_TIME    6000_000
+    `define   SIM_TIME    15_000_000
     `define   SIM_LEVEL   0
-    `define   TEST_FILE   "../mem/test.mem" 
+    `define   TEST_FILE   "../mem/test_i.mem" 
 
     `include "rtl_fpga/n5_netlists.v"
     `include "sst26wf080b.v"
     `include "23LC512.v" 
     `include "M24LC16B.v"
 `else
-    `define   TEST_FILE   "test.mem" 
+    `define   TEST_FILE   "test_i.mem" 
 `endif
 
 module N5_FPGA_TB;
@@ -54,15 +54,14 @@ module N5_FPGA_TB;
     // I2C E2PROM connected to I2C0
     wire    scl, sda;
     
-    /* Program Flash */
-    // assign fdio = fdoe ? fdo : 4'bzzzz;
-    // assign fdi = fdio;
-
-    sst26wf080b flash(
-        .SCK(fsclk),
-        .SIO(fdio),
-        .CEb(fcen)
-    );
+    `ifndef FETCH_FROM_RAM
+        /* Program Flash */
+        sst26wf080b flash(
+            .SCK(fsclk),
+            .SIO(fdio),
+            .CEb(fcen)
+        );
+    `endif
 
     /* N5_SoC Core */
     soc_core MUV (
@@ -143,14 +142,15 @@ module N5_FPGA_TB;
         .RESET(~HRESETn)
     );
 
-    // Load the application into the flash memory
-    initial begin
-        #1  $readmemh(`TEST_FILE, flash.I0.memory);
-        $display("---------N5 Flash -----------");
-		$display("Memory[0]: %0d, Memory[1]: %0d, Memory[2]: %0d, Memory[3]: %0d", 
-            flash.I0.memory[0], flash.I0.memory[1], flash.I0.memory[2], flash.I0.memory[3]);
-    end
-
+    `ifndef FETCH_FROM_RAM
+        // Load the application into the flash memory
+        initial begin
+            #1  $readmemh(`TEST_FILE, flash.I0.memory);
+            $display("---------N5 Flash -----------");
+            $display("Memory[0]: %0d, Memory[1]: %0d, Memory[2]: %0d, Memory[3]: %0d", 
+                flash.I0.memory[0], flash.I0.memory[1], flash.I0.memory[2], flash.I0.memory[3]);
+        end
+    `endif
     // Clock and Rest Generation
     initial begin
         //Inputs initialization

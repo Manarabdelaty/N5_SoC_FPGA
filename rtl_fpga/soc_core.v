@@ -272,7 +272,9 @@ module soc_core (
 	);
 
 	// Instantiation of NfiVe32
-	NfiVe32_SYS CPU (
+	NfiVe32_SYS #(
+		.PC_START_ADDRESS(`PC_START_ADDRESS)
+	) CPU (
 `ifdef USE_POWER_PINS
 	.VPWR(VPWR),
 	.VGND(VGND),

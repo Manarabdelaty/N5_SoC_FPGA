@@ -1,8 +1,6 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-// `define INIT_MEMORY
-
 module RAM_4Kx32 (
 `ifdef USE_POWER_PINS
     VPWR,
@@ -28,8 +26,7 @@ module RAM_4Kx32 (
     output reg  [31:0]  Do;
     input   [11:0]   A;
 
-    localparam COLS = 16;
-   
+   localparam COLS = 64;
    reg [31:0] RAM[(256*COLS)-1 : 0];
        
    always @(posedge CLK) 
@@ -43,8 +40,12 @@ module RAM_4Kx32 (
        else
            Do <= 32'b0;
 
-    `ifdef INII_MEMORY
-        $readmemh("test.mem", RAM);
+    `ifdef INIT_MEMORY
+        initial begin
+            $readmemh(`RAM_FILE_PATH, RAM);
+            $display("Memory[0]: %0d, Memory[1]: %0d, Memory[2]: %0d, Memory[3]: %0d", 
+                    RAM[0], RAM[1], RAM[2], RAM[3]);
+        end
     `endif
     
 endmodule
