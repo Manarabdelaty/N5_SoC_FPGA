@@ -2,7 +2,7 @@
 `timescale 1ns/1ns
 
 `ifdef USE_RESET_BTN
-	`define HRESETn_PORT .HRESETn(HRESETn_Sync)
+	`define HRESETn_PORT .HRESETn(~HRESETn_Sync)
 `else
 	`define HRESETn_PORT .HRESETn(HRESETn)
 `endif
