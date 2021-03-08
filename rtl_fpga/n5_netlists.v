@@ -23,6 +23,8 @@
 `include "IPs/APB_SPI.v"
 `include "IPs/APB_I2C.v"
 `include "IPs/AHBSRAM.v"
+`include "IPs/AHBROM.v"
+`include "IPs/ROM.v"
 `include "IPs/QSPI_XIP_CTRL.v"
 
 `include "acc/AHB_SPM.v"

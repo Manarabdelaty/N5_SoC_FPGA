@@ -13,6 +13,12 @@
     `define   TEST_FILE   "test_i.mem" 
 `endif
 
+`ifdef USE_RESET_BTN
+    `define RESET_DELAY  8000000
+`else
+    `define RESET_DELAY 80
+`endif
+
 module N5_FPGA_TB;
 
     reg HCLK, HRESETn;
@@ -142,7 +148,7 @@ module N5_FPGA_TB;
         .RESET(~HRESETn)
     );
 
-    `ifndef FETCH_FROM_RAM
+    `ifdef FETCH_FROM_FLASH 
         // Load the application into the flash memory
         initial begin
             #1  $readmemh(`TEST_FILE, flash.I0.memory);
@@ -158,7 +164,7 @@ module N5_FPGA_TB;
         HRESETn = 1'bx;        
         #50;
         HRESETn = 0;
-        #8000000;
+        #(`RESET_DELAY)
         @(posedge HCLK);
         HRESETn <= 1;
     end

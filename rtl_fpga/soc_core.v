@@ -74,6 +74,10 @@ module soc_core (
 	wire [0: 0] SRAMCS0_Sys0_S1;
 	wire [11: 0] SRAMADDR_Sys0_S1;
 
+	wire [31: 0] ROMRDATA;
+	wire [12: 0] ROMADDR;
+	wire [0: 0]  ROMCS0;
+
 	// AHB LITE Master2 Signals
 	wire [31:0] M2_HADDR;
 	wire [0:0] M2_HREADY;
@@ -214,6 +218,12 @@ module soc_core (
 		.fsclk_S0(fsclk_Sys0_S0),
 		.fcen_S0(fcen_Sys0_S0),
 
+`ifdef USE_ROM
+		// ROM Inteface
+		.ROMRDATA(ROMRDATA), 
+		.ROMCS0(ROMCS0),
+	    .ROMADDR(ROMADDR),  
+`endif	
 		// SRAM Interface
 		.SRAMRDATA_S1(SRAMRDATA_Sys0_S1),
 		.SRAMWEN_S1(SRAMWEN_Sys0_S1),
@@ -273,6 +283,16 @@ module soc_core (
 
 	);
 
+`ifdef USE_ROM
+	ROM #(
+		.MEM_WORDS(`ROM_MEM_WORDS)
+	)ROM (
+		.CLK(HCLK),
+		.EN(ROMCS0),
+		.Do(ROMRDATA),
+		.A(ROMADDR)
+	);
+`endif
 
 	RAM_4Kx32 RAM (
 	`ifdef USE_POWER_PINS

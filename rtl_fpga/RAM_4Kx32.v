@@ -40,12 +40,11 @@ module RAM_4Kx32 (
        else
            Do <= 32'b0;
 
-    `ifdef INIT_MEMORY
+    `ifdef INIT_RAM
         initial begin
             $readmemh(`RAM_FILE_PATH, RAM);
-            $display("Memory[0]: %0d, Memory[1]: %0d, Memory[2]: %0d, Memory[3]: %0d", 
+            $display("Memory[0]: %0h, Memory[1]: %0h, Memory[2]: %0h, Memory[3]: %0h", 
                     RAM[0], RAM[1], RAM[2], RAM[3]);
         end
     `endif
-    
 endmodule
