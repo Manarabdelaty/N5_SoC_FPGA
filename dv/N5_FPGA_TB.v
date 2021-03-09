@@ -3,14 +3,14 @@
 `ifdef ICARUS_VERILOG
     `define   SIM_TIME    50_000_000
     `define   SIM_LEVEL   0
-    `define   TEST_FILE   "../mem/test_i.mem" 
+    `define   TEST_FILE   "../mem/test_flash.mem" 
 
     `include "rtl_fpga/n5_netlists.v"
     `include "sst26wf080b.v"
     `include "23LC512.v" 
     `include "M24LC16B.v"
 `else
-    `define   TEST_FILE   "test_i.mem" 
+    `define   TEST_FILE   "test_flash.mem" 
 `endif
 
 `ifdef USE_RESET_BTN

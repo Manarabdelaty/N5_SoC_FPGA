@@ -1,6 +1,16 @@
-`define   INTEL_HEX    "../mem/test_i.mem" 
-`define   VERILOG_HEX  "../mem/test_v.mem" 
+// Hex files
+`define ROM_HEX_INTEL   "../mem/test_rom_i.mem"
+`define ROM_HEX_VERILOG "../mem/test_rom_v.mem"
+`define RAM_HEX_INTEL   "../mem/test_ram_i.mem"
+`define RAM_HEX_VERILOG "../mem/test_ram_v.mem"
 
+`ifdef RAM
+  `define INTEL_HEX   `RAM_HEX_INTEL
+  `define VERILOG_HEX `RAM_HEX_VERILOG
+`else
+  `define INTEL_HEX   `ROM_HEX_INTEL
+  `define VERILOG_HEX `ROM_HEX_VERILOG
+`endif
 
 module IntelHextoVHex;
 
