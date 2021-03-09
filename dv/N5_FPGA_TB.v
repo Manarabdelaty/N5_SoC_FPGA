@@ -15,8 +15,10 @@
 
 `ifdef USE_RESET_BTN
     `define RESET_DELAY  8000000
+    `define RESET_VAL    1     // when button is pressed
 `else
     `define RESET_DELAY 80
+    `define RESET_VAL   0
 `endif
 
 module N5_FPGA_TB;
@@ -163,10 +165,10 @@ module N5_FPGA_TB;
         HCLK = 0;
         HRESETn = 1'bx;        
         #50;
-        HRESETn = 0;
+        HRESETn = `RESET_VAL;
         #(`RESET_DELAY)
         @(posedge HCLK);
-        HRESETn <= 1;
+        HRESETn <= ~(`RESET_VAL);
     end
 
     always #5 HCLK = ~ HCLK;

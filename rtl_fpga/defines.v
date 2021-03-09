@@ -1,7 +1,7 @@
 `define NO_HC_CACHE
 `define NO_HC_REGF
 
-// `define USE_RESET_BTN
+`define USE_RESET_BTN
 
 `ifdef FETCH_FROM_ROM
     `define USE_ROM
