@@ -15,27 +15,27 @@ module soc_core (
 	input wire HCLK, 
 	input wire HRESETn,
 	
-	input wire 			NMI,
+	// input wire 			NMI,
 	// input wire [7:0]	SYSTICKCLKDIV,
 
-	inout wire [3: 0] 	fd_Sys0_S0,
+	inout  wire [3: 0] 	fd_Sys0_S0,
 	output wire [0: 0] 	fsclk_Sys0_S0,
 	output wire [0: 0] 	fcen_Sys0_S0,
 
 	inout wire [15: 0] GPIO_Sys0_S2,
 
-	input wire [0: 0] RsRx_Sys0_SS0_S0,
+	input  wire [0: 0] RsRx_Sys0_SS0_S0,
 	output wire [0: 0] RsTx_Sys0_SS0_S0,
 
-	input wire [0: 0] RsRx_Sys0_SS0_S1,
+	input  wire [0: 0] RsRx_Sys0_SS0_S1,
 	output wire [0: 0] RsTx_Sys0_SS0_S1,
 
-	input wire [0: 0] MSI_Sys0_SS0_S2,
+	input  wire [0: 0] MSI_Sys0_SS0_S2,
 	output wire [0: 0] MSO_Sys0_SS0_S2,
 	output wire [0: 0] SSn_Sys0_SS0_S2,
 	output wire [0: 0] SCLK_Sys0_SS0_S2,
 	
-	input wire [0: 0] MSI_Sys0_SS0_S3,
+	input  wire [0: 0] MSI_Sys0_SS0_S3,
 	output wire [0: 0] MSO_Sys0_SS0_S3,
 	output wire [0: 0] SSn_Sys0_SS0_S3,
 	output wire [0: 0] SCLK_Sys0_SS0_S3,
@@ -109,6 +109,7 @@ module soc_core (
 	assign M2_HBUSREQ = 1'b1;
 	
 	wire [7:0] SYSTICKCLKDIV = 8'd100;
+	wire NMI = 1'b0;
 
     gpio_bidir #(
         .WIDTH(16)

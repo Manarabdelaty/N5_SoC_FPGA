@@ -39,17 +39,21 @@ endif
 ifeq ($(BOOT),RAM)
 	sed -i 's/@20/@00/g' $(RAM_HEX_INTEL)
 	iverilog -DRAM IntelHexToVHex.v -o mem.vvp ; vvp mem.vvp
+	# Remove corrupted memory 
+	sed -i '/^xxxxxxxx/d' $(RAM_HEX_VERILOG)
 	iverilog -o $@ -DFETCH_FROM_RAM -DICARUS_VERILOG -DUSE_IO_BUF_BEH \
 	-I $(N5_FPGA_RTL_PATH) -I $(N5_RTL_PATH) -I $(N5_SIM_PATH) N5_FPGA_TB.v
 endif
 ifeq ($(BOOT),ROM)
 	sed -i 's/@4A/@00/g' $(ROM_HEX_INTEL)
 	iverilog -DROM IntelHexToVHex.v -o mem.vvp ; vvp mem.vvp
+	# Remove corrupted memory 
+	sed -i '/^xxxxxxxx/d' $(ROM_HEX_VERILOG)
 	iverilog -o $@ -DFETCH_FROM_ROM -DICARUS_VERILOG -DUSE_IO_BUF_BEH \
 	-I $(N5_FPGA_RTL_PATH) -I $(N5_RTL_PATH) -I $(N5_SIM_PATH) N5_FPGA_TB.v
 endif 
 ifeq ($(BOOT),FLASH)
-	iverilog -o $@  -DICARUS_VERILOG -DUSE_IO_BUF_BEH \
+	iverilog -o $@  -DFETCH_FROM_FLASH -DICARUS_VERILOG -DUSE_IO_BUF_BEH \
 	-I $(N5_FPGA_RTL_PATH) -I $(N5_RTL_PATH) -I $(N5_SIM_PATH) N5_FPGA_TB.v
 endif
 

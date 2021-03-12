@@ -62,7 +62,7 @@ module N5_FPGA_TB;
     // I2C E2PROM connected to I2C0
     wire    scl, sda;
     
-    `ifndef FETCH_FROM_RAM
+    `ifdef FETCH_FROM_FLASH
         /* Program Flash */
         sst26wf080b flash(
             .SCK(fsclk),
@@ -81,7 +81,7 @@ module N5_FPGA_TB;
         .HRESETn(HRESETn),
 
         // .SYSTICKCLKDIV(8'd100),
-        .NMI(1'b0),
+        // .NMI(1'b0),
        
         .fd_Sys0_S0(fdio),
         .fsclk_Sys0_S0(fsclk),

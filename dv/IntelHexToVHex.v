@@ -30,7 +30,7 @@ initial begin
                  ({24'b0, mem[i*4 + 1]} << 8)  | 
                  (mem[i*4]);
     end
-
+    
     $writememh(`VERILOG_HEX, RAM);
     
 end
