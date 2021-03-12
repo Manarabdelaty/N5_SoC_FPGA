@@ -1,7 +1,9 @@
 `timescale 1ns/1ns
 
+`define CLK_PERIOD 83.3333333
+
 `ifdef ICARUS_VERILOG
-    `define   SIM_TIME    50_000_000
+    `define   SIM_TIME    500_000_000
     `define   SIM_LEVEL   0
     `define   TEST_FILE   "../mem/test_flash.mem" 
 
@@ -14,10 +16,10 @@
 `endif
 
 `ifdef USE_RESET_BTN
-    `define RESET_DELAY  8000000
+    `define RESET_DELAY  80000000
     `define RESET_VAL    1     // when button is pressed
 `else
-    `define RESET_DELAY 80
+    `define RESET_DELAY 800
     `define RESET_VAL   0
 `endif
 
@@ -171,7 +173,7 @@ module N5_FPGA_TB;
         HRESETn <= ~(`RESET_VAL);
     end
 
-    always #5 HCLK = ~ HCLK;
+    always #(`CLK_PERIOD / 2.00) HCLK = ~ HCLK;
 
     `ifdef ICARUS_VERILOG
         // Dump file
@@ -201,7 +203,7 @@ module N5_FPGA_TB;
     
 endmodule
 
-module terminal #(parameter bit_time = 160) (input rx);
+module terminal #(parameter bit_time = 1333.3333333) (input rx);
 
     integer i;
     reg [7:0] char;
